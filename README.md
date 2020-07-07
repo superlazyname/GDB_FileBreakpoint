@@ -1,5 +1,6 @@
 I think there's some kind of bug in GDB maybe
 
+# Trying to set breakpoints on test.c
 ```
 me@um20main:~/a_dev/multifile_gdb$ gdb test
 GNU gdb (Ubuntu 9.1-0ubuntu1) 9.1
@@ -18,43 +19,44 @@ Find the GDB manual and other documentation resources online at:
 For help, type "help".
 Type "apropos word" to search for commands related to "word"...
 Reading symbols from test...
-(gdb) b /home/me/a_dev/multifile_gdb/test.c:5
+(gdb) b /home/me/a_dev/multifile_gdb/test.c:13
 No source file named /home/me/a_dev/multifile_gdb/test.c.
 Make breakpoint pending on future shared library load? (y or [n]) n
-(gdb) b ./test.c:5
+(gdb) b ./test.c:13
 No source file named ./test.c.
 Make breakpoint pending on future shared library load? (y or [n]) n
-(gdb) b test.c:5
-Breakpoint 1 at 0x1151: test.c:5. (3 locations)
+(gdb) b test.c:13
+Breakpoint 1 at 0x1151: test.c:13. (3 locations)
 (gdb) r
 Starting program: /home/me/a_dev/multifile_gdb/test 
 
-Breakpoint 1, test_a () at a/test.c:5
-5	    printf("Hello from test_a!\n");
+Breakpoint 1, test_a () at a/test.c:13
+13	    printf("Hello from test_a!\n");
 (gdb) c
 Continuing.
 Hello from test_a!
 
-Breakpoint 1, test_b () at b/test.c:5
-5	    printf("Hello from test_b!\n");
+Breakpoint 1, test_b () at b/test.c:13
+13	    printf("Hello from test_b!\n");
 (gdb) c
 Continuing.
 Hello from test_b!
 
-Breakpoint 1, test_c () at c/test.c:5
-5	    printf("Hello from test_c!\n");
+Breakpoint 1, test_c () at c/test.c:13
+13	    printf("Hello from test_c!\n");
 (gdb) c
 Continuing.
 Hello from test_c!
 Hello from main()!
-[Inferior 1 (process 9406) exited normally]
-(gdb) 
+[Inferior 1 (process 10328) exited normally]
+
 ```
 - Note how I could not specify test.c as a file for the breakpoint, either using ./test.c, or (full path to)/test.c
 - Note how when I specified b test.c:5 did not stop in ./test.c:5, it stopped in ./a/test.c:5, ./b/test.c:5, ./c/test.c:5
 
 It does work, though, if I rename ./test.c to ./test_rename.c
 
+# Setting breakpoints on test_rename.c
 ```
 me@um20main:~/a_dev/multifile_gdb$ gdb test_rename
 GNU gdb (Ubuntu 9.1-0ubuntu1) 9.1
