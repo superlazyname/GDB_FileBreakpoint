@@ -1,4 +1,5 @@
-I think there's some kind of bug in GDB maybe
+Bug reported: 
+https://sourceware.org/bugzilla/show_bug.cgi?id=26213
 
 # Trying to set breakpoints on test.c
 ```
